@@ -1,11 +1,3 @@
-// use easy::a281::word_capitalize_test;
-
-// use easy::a236::boy_or_girl_test;
-
-mod easy;
-fn main() {
-    println!("{}", stones_on_table());
-}
 
 fn stones_on_table() -> usize {
 
@@ -33,4 +25,5 @@ fn stones_on_table() -> usize {
     }
     return rm;
 }
+
 
