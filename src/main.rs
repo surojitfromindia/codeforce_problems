@@ -4,41 +4,87 @@
 
 // use easy::a617::elephant_move;
 
+// use easy::a148::insomnia;
+
 mod easy;
 fn main() {
-    elephant_move_test();
+
+    // let mut k_b = String::with_capacity(10);
+    // let mut l_b = String::with_capacity(10);
+    // let mut m_b = String::with_capacity(10);
+    // let mut n_b = String::with_capacity(10);
+    // let mut d_b = String::with_capacity(10);
+
+    // std::io::stdin().read_line(&mut k_b).unwrap();
+    // std::io::stdin().read_line(&mut l_b).unwrap();
+    // std::io::stdin().read_line(&mut m_b).unwrap();
+    // std::io::stdin().read_line(&mut n_b).unwrap();
+    // std::io::stdin().read_line(&mut d_b).unwrap();
+
+
+    // let k = k_b.trim().parse::<u8>().unwrap();
+    // let l = l_b.trim().parse::<u8>().unwrap();
+    // let m = m_b.trim().parse::<u8>().unwrap();
+    // let n = n_b.trim().parse::<u8>().unwrap();
+    // let d = d_b.trim().parse::<u64>().unwrap();
+
+
+
+    let k =insomnia(2,3,4,5,24);
+    println!("{}",k);
 }
 
+pub fn insomnia(k: u8, l: u8, m: u8, n: u8, d: u64) -> u64{
 
-pub fn elephant_move(to_pos: u64)-> u64{
-    let mut moves = 0;
-    let mut e_pos : u64 = 0;      
-      let diff =   to_pos - e_pos;
 
-    while to_pos > e_pos {
-        // remaining steps are less than 4
-        if to_pos - e_pos <= 4 {
-            moves+=1;
-            e_pos+=diff;
-            // println!("less {} e_pos {}", diff, e_pos);
-
-        }
-        else{
-            // we need to take all 5 steps
-            let step_5_moves = (to_pos - e_pos) / 5;
-            // println!("s {} {} {}", step_5_moves, to_pos, e_pos);
-            moves+=step_5_moves;
-            // now subtract the distance
-            e_pos+= 5 * step_5_moves;
-        }
+    if k==1 || l==1 || m ==1 || n ==1 {
+        return d;
     }
-    moves
+
+    // subtract number of this multiples
+    let kl = lcm(k , l);
+    let km = lcm(k,m);
+    let kn = lcm(k , n);
+
+    let lm = lcm(l , m);
+    let ln = lcm(l , n);
+
+    let mn = lcm(m , n);
+
+    let from_k = d / k as u64;
+    let from_l = d / l as u64;
+    let from_m = d / m as u64;
+    let from_n = d / n as u64;
+
+    println!("{} {} {} {}", from_k, from_l , from_m , from_n);
+
+    let from_values = from_k+ from_l + from_m + from_n;
+
+    let mut repeat = d / kl;
+
+
+
+    repeat += d / km;
+    repeat += d / kn ;
+    repeat += d / lm ;
+    repeat += d / ln ;
+    repeat += d / mn ;
+    println!("rp {}", repeat);
+
+    return  from_values - repeat;
 }
 
-fn elephant_move_test(){
-    let mut n_buff = String::with_capacity(5);
-    std::io::stdin().read_line(&mut n_buff).unwrap();
-    let n = n_buff.trim().parse::<u64>().unwrap();
 
-    println!("{}", elephant_move(n));
+fn gcd(a: u8, b: u8)-> u64{
+    if b!=0 {
+        return  gcd(b, a%b);
+    }
+    else {
+        return a as u64;
+    }
 }
+
+fn lcm(a:u8, b:u8)-> u64 {
+   (a * b) as u64 / gcd(a, b) 
+}
+
