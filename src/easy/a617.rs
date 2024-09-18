@@ -1,14 +1,3 @@
-// use easy::a281::word_capitalize_test;
-
-// use easy::a236::boy_or_girl_test;
-
-// use easy::a617::elephant_move;
-
-mod easy;
-fn main() {
-    elephant_move_test();
-}
-
 
 pub fn elephant_move(to_pos: u64)-> u64{
     let mut moves = 0;
@@ -34,7 +23,6 @@ pub fn elephant_move(to_pos: u64)-> u64{
     }
     moves
 }
-
 fn elephant_move_test(){
     let mut n_buff = String::with_capacity(5);
     std::io::stdin().read_line(&mut n_buff).unwrap();
