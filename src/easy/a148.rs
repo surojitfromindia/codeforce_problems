@@ -1,37 +1,38 @@
-pub fn insomnia(k: u8, l: u8, m: u8, n: u8, d: u64) -> u64{
-
-
-    if k==1 || l==1 || m ==1 || n ==1 {
+fn insomnia(k: u64, l: u64, m: u64, n: u64, d: u64) -> u64 {
+    if k == 1 || l == 1 || m == 1 || n == 1 {
         return d;
     }
 
-    // subtract number of this multiples
-    let kl = k * l;
-    let km = k * m;
-    let kn = k * n;
+    // todo: another solution using inclusion-exclusion principle
+    // https://codeforces.com/contest/148/submission/11987935
+    let mut count = 0;
+    for i in 1..=d {
+        if i % k == 0 || i % l == 0 || i % m == 0 || i % n == 0 {
+            count += 1;
+        }
+    }
+    count
+}
 
-    let lm = l * m;
-    let ln = l * n;
+pub fn insomnia_test() {
+    let mut k_b = String::with_capacity(10);
+    let mut l_b = String::with_capacity(10);
+    let mut m_b = String::with_capacity(10);
+    let mut n_b = String::with_capacity(10);
+    let mut d_b = String::with_capacity(10);
 
-    let mn = m * n;
+    std::io::stdin().read_line(&mut k_b).unwrap();
+    std::io::stdin().read_line(&mut l_b).unwrap();
+    std::io::stdin().read_line(&mut m_b).unwrap();
+    std::io::stdin().read_line(&mut n_b).unwrap();
+    std::io::stdin().read_line(&mut d_b).unwrap();
 
-    let from_k = d / k as u64;
-    let from_l = d / l as u64;
-    let from_m = d / m as u64;
-    let from_n = d / n as u64;
+    let k = k_b.trim().parse::<u8>().unwrap();
+    let l = l_b.trim().parse::<u8>().unwrap();
+    let m = m_b.trim().parse::<u8>().unwrap();
+    let n = n_b.trim().parse::<u8>().unwrap();
+    let d = d_b.trim().parse::<u64>().unwrap();
 
-    println!("{} {} {} {}", from_k, from_l , from_m , from_n);
-
-    let from_values = from_k+ from_l + from_m + from_n;
-
-    let mut repeat = d / kl as u64;
-    repeat += d / km as u64;
-    repeat += d / kn as u64;
-    repeat += d / lm as u64;
-    repeat += d / ln as u64;
-    repeat += d / mn as u64;
-
-    println!("d {} r {}", from_values, repeat);
-
-    return  from_values - repeat;
+    let k = insomnia(k as u64, l as u64, m as u64, n as u64, d);
+    println!("{}", k);
 }
