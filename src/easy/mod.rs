@@ -21,3 +21,5 @@ pub mod a977;
 pub mod a734;
 pub mod a116;
 pub mod  a41;
+pub mod  a271;
+pub mod a677;
