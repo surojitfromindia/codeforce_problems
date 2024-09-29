@@ -33,3 +33,7 @@ pub mod a228;
 pub mod a61;
 pub mod a705;
 pub mod a996;
+pub mod a96;
+pub mod a160;
+pub  mod a318;
+pub mod a443;
